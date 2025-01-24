@@ -1,0 +1,62 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+button {
+  margin: 2rem;
+  padding: 2rem;
+}
+
+.startbutton-create {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.startbutton-join {
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dogefight {
+    background: linear-gradient(-45deg, #8652ee, #e73c7e, #23a6d5, #52d523, #ee52ad, #5d00ff, #23a6d5, #8652ee);
+    background-size: 800% 800%;
+    animation: gradient 5s linear infinite;
+}
+
+.dogefight img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+  
+@keyframes gradient {
+  0% {
+    background-position: 0% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
