@@ -3,10 +3,14 @@ import PropTypes from "prop-types";
 import GameBoard from "./GameBoard";
 import "./App.css";
 import { useStore } from "./components/context/StoreProvider";
+import Modal from "./Modal";
 
 function Game() {
   const store = useStore();
+  const playerId = store.use(() => store.get("playerId"));
   const gameClient = store.get("gameClient");
+
+  const [showWelcome, setShowWelcome] = useState(false);
 
   function join(room) {
     return new Promise((resolve) => {
@@ -33,37 +37,142 @@ function Game() {
   }
 
   const [gameState, setGameState] = useState("home");
-  const components = {
-    home: <GameHome setGameState={setGameState} />,
-    create: <CreateGame setGameState={setGameState} create={create} />,
-    join: <JoinGame setGameState={setGameState} join={join} />,
-    game: <GameBoard setGameState={setGameState} />,
+
+  const confirmWelcome = (func) => () =>{
+    if (playerId) {
+      return func();
+    }
+    setShowWelcome(true);
+
   };
 
-  return <>{components[gameState] || ""}</>;
+  const components = {
+    home: <GameHome setGameState={setGameState}  confirmWelcome={confirmWelcome}  />,
+    create: <CreateGame setGameState={setGameState} create={create} />,
+    join: <JoinGame setGameState={setGameState} join={join} />,
+    game: <GameBoard setGameState={setGameState}/>,
+  };
+
+  return <>
+  {components[gameState] || ""}
+  {showWelcome && <WelcomeModal close={() => setShowWelcome(false)} />}
+
+  </>;
 }
 
-function GameHome({ setGameState }) {
+function GameHome({ setGameState, confirmWelcome }) {
+  const [showAbout, setShowAbout] = useState(false);
+
   return (
     <>
       <div className={"dogefight"}>
-        <img src="/assets/dogefight.png" alt="dogefight" />
+        <picture>
+          <source media="(min-width: 1200px)" srcSet="/assets/dogefight.png" />
+          <img src="/assets/dogev.png" alt="Dogefight" />
+        </picture>
       </div>
       <button
-        onClick={() => setGameState("create")}
-        className="startbutton startbutton-create"
+        onClick={confirmWelcome(() => setGameState("create"))}
+        className="btn-big btn-create"
       >
-        Create Game
+        Create
       </button>
-      <button
-        onClick={() => setGameState("join")}
-        className="startbutton startbutton-join"
-      >
-        Join Game
+      <button onClick={confirmWelcome(() => setGameState("join"))} className="btn-big btn-join">
+        Join
       </button>
+      <button onClick={() => setShowAbout(true)} className="btn-big btn-about">
+        About
+      </button>
+      {showAbout && <AboutModal close={() => setShowAbout(false)} />}
     </>
   );
 }
+
+function AboutModal({ close }) {
+  return <Modal close={close} content={<div>Hey</div>} />;
+}
+
+function WelcomeModal({ close }) {
+
+  const [welcomeState, setWelcomeState] = useState("welcome");
+
+  const [avatar, setAvatar] = useState(1);
+
+  const [input, setInput] = useState({ name: "" });
+
+  const handleInput = (key) => (e) => {
+    setInput({ ...input, [key]: e.target.value });
+  }
+
+
+  return (
+    <>
+    {welcomeState}
+    {welcomeState === "welcome" &&
+    <Modal
+      close={close}
+      content={
+        <div className="modal-welcome">
+          <div className="flex-center">
+            <img className="img-holup" src="/assets/holup.png" alt="Holup doge" />
+            <p>
+            Whoa there soldier! No humans allowed past this point! Okay fine.
+            Just one. Look, you&apos;ll need an ID, though
+            </p>
+          </div>
+        </div>  
+      }
+      otherButtons={
+        <button className="btn-big btn-continue" onClick={() => setWelcomeState("info")}>
+          Um.. okay
+        </button>
+      }
+      closeText="Nah"
+    />}
+
+    {welcomeState === "info" &&
+    <Modal
+      close={close}
+      content={
+        <div className="modal-welcome">
+          <div className="avatars">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <img
+                key={i}
+                className={`img-avatar-${i} img-avatar ${avatar === i && "selected"}`}
+                src={`/assets/avatars/${i}.jpeg`}
+                alt={`Avatar ${i}`}
+                onClick={() => setAvatar(i)}
+              />))}
+            </div>
+
+            <h1>What&apos;s your name?</h1>
+            <input type="text" value={input['name']} placeholder="Make it heroic" onChange={handleInput("name")}></input>
+
+        </div>  
+      }
+      otherButtons={
+        <button className="btn-big btn-continue" onClick={() => setWelcomeState("name")}>
+          Let&apos;s go
+        </button>
+      }
+      closeText="Nah"
+      />
+    }
+    
+    
+    
+    </>
+  );
+}
+
+WelcomeModal.propTypes = {
+  close: PropTypes.func.isRequired,
+};
+
+AboutModal.propTypes = {
+  close: PropTypes.func.isRequired,
+};
 
 function CreateGame({ setGameState, create }) {
   const store = useStore();
@@ -81,10 +190,7 @@ function CreateGame({ setGameState, create }) {
         <>
           <h1>Create Game</h1>
           <input type="text" placeholder="Enter your name"></input>
-          <button
-            onClick={() => handleCreate()}
-            className="startbutton startbutton-create"
-          >
+          <button onClick={() => handleCreate()} className="btn-big btn-create">
             Create Game
           </button>
           <button onClick={() => setGameState("home")}>
@@ -126,7 +232,7 @@ function JoinGame({ setGameState, join }) {
           placeholder="Enter room code"
           onChange={handleEvent(input)}
         ></input>
-        <button className="startbutton startbutton-join">Join Game</button>
+        <button className="btn-big btn-join">Join Game</button>
         <button onClick={() => setGameState("home")}>{unicodeBackArrow}</button>
       </form>
     </>
@@ -134,6 +240,7 @@ function JoinGame({ setGameState, join }) {
 }
 GameHome.propTypes = {
   setGameState: PropTypes.func.isRequired,
+  confirmWelcome: PropTypes.func.isRequired,
 };
 
 JoinGame.propTypes = {

@@ -10,34 +10,76 @@ button {
   padding: 2rem;
 }
 
-.startbutton-create {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
+@keyframes jiggle {
+  0%, 100% {
+      transform: rotate(0deg) scale(1.15);
+  }
+  25% {
+      transform: rotate(3deg);
+  }
+  50% {
+      transform: rotate(-3deg);
+  }
+  75% {
+      transform: rotate(3deg);
+  }
 }
 
-.startbutton-join {
-  background-color: #008CBA;
-  color: white;
-  border: none;
+.btn-big {
+  transition: transform 0.1s ease-in-out;
+  /*, border-color 0.25s linear;*/
+
+  /* drop shadow, offset 8px, with 5px blur */
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.2);
+
+
   border-radius: 8px;
+  border: 5px solid transparent;
+  background-color: #000;
+  color: white;
+  padding: 22px;
+  border-radius: 25px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 44px;
   cursor: pointer;
+  font-family: "Rampart One", serif;
+
+}
+
+.btn-big:hover {
+  border-color: #ffffff60;
+  animation: jiggle 0.5s infinite, gradient 5s linear infinite;;
+  background: linear-gradient(-45deg, #8652ee, #e73c7e, #23a6d5, #52d523, #ee52ad, #5d00ff, #23a6d5, #8652ee);
+    background-size: 800% 800%;
+
+}
+
+.btn-big:focus,
+.btn-big:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+.btn-create {
+  background-color: #832dfc;
+}
+
+.btn-join {
+  background-color: #05c1ff;
 }
 
 .dogefight {
     background: linear-gradient(-45deg, #8652ee, #e73c7e, #23a6d5, #52d523, #ee52ad, #5d00ff, #23a6d5, #8652ee);
     background-size: 800% 800%;
     animation: gradient 5s linear infinite;
+    transition: transform 0.1s ease-in-out;
+}
+.dogefight:hover {
+  animation: jiggle 0.5s infinite, gradient 3s linear infinite;;
+
+  transform: scale(1.1);
 }
 
 .dogefight img {
@@ -59,4 +101,73 @@ button {
   100% {
     background-position: 0% 100%;
   }
+}
+
+.img-holup {
+  flex: 1;
+  width: 250px;
+  height: auto;
+}
+
+.modal {
+  max-width: 80vw;
+}
+.modal-welcome p {
+  font-size: 1.1em;
+  font-weight: 500;
+  text-decoration: inherit;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.avatars {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.img-avatar {
+  padding: 0.1em;
+  border: solid 5px black;
+  border-radius: 15px;
+  flex: 1;
+  height: auto;
+  max-width: 19%;
+  transition: transform 0.1s ease-in-out, filter 0.1s ease-in-out;
+}
+.img-avatar:not(.selected) {
+  filter: grayscale(100%);
+}
+.img-avatar:not(.selected):hover {
+  transform: scale(1.1);
+  animation: jiggle 0.5s infinite;
+  filter: grayscale(0%);
+}
+
+
+.img-avatar-1.selected {
+  border-color: #832dfc;
+}
+
+.img-avatar-2.selected {
+  border-color: #05c1ff;
+}
+
+.img-avatar-3.selected {
+  border-color: #ff0080;
+}
+
+.img-avatar-4.selected {
+  border-color: #ff00c3;
+}
+
+.img-avatar-5.selected {
+  border-color: #ff4800;
+}
+
+.greyscale {
+  filter: grayscale(100%);
 }

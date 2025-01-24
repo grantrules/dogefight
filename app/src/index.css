@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Audiowide", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,7 +12,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+* {
+  font-family: "Audiowide", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
+}
+input {
+  font-size: 1.8em;
+  padding: 0.5em;
+  border-radius: 15px;
+  transition: transform 0.1s ease-in-out;
+  width: 10em;
+}
+input:hover,
+input:focus {
+  transform: scale(1.1);
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -34,7 +48,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/*
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -53,7 +67,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
+*/
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
