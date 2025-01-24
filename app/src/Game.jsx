@@ -123,7 +123,7 @@ function WelcomeModal({ close }) {
         </div>  
       }
       otherButtons={
-        <button className="btn-big btn-continue" onClick={() => setWelcomeState("info")}>
+        <button className="btn-big btn-continue bg-color-2" onClick={() => setWelcomeState("info")}>
           Um.. okay
         </button>
       }
@@ -152,7 +152,7 @@ function WelcomeModal({ close }) {
         </div>  
       }
       otherButtons={
-        <button className="btn-big btn-continue" onClick={() => setWelcomeState("name")}>
+        <button className="btn-big btn-continue bg-color-3" onClick={() => setWelcomeState("name")}>
           Let&apos;s go
         </button>
       }

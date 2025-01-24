@@ -105,7 +105,7 @@ button {
 
 .img-holup {
   flex: 1;
-  width: 250px;
+  max-width: 30%;
   height: auto;
 }
 
@@ -147,9 +147,36 @@ button {
   filter: grayscale(0%);
 }
 
+.bg-color-1 {
+  background-color: var(--color-1);
+}
 
+.bg-color-2 {
+  background-color: var(--color-2);
+}
+
+.bg-color-3 {
+  background-color: var(--color-3);
+}
+
+.bg-color-4 {
+  background-color: var(--color-4);
+}
+
+.bg-color-5 {
+  background-color: var(--color-5);
+}
+
+/* create color variables*/
+:root {
+  --color-1: #832dfc;
+  --color-2: #05c1ff;
+  --color-3: #ff0080;
+  --color-4: #ff00c3;
+  --color-5: #ff4800;
+}
 .img-avatar-1.selected {
-  border-color: #832dfc;
+  border-color: var(--color-1);
 }
 
 .img-avatar-2.selected {
